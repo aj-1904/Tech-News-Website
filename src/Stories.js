@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AppContext } from "./context";
 
 function Stories() {
-  const { hits, isLoading } = useContext(AppContext);
+  const { hits, isLoading, removePost } = useContext(AppContext);
   if (isLoading) {
     return <h1>Loading.....</h1>;
   }
@@ -25,7 +25,9 @@ function Stories() {
                   <a href={url} target="_blank">
                     Read More
                   </a>
-                  <a href="#">Remove</a>
+                  <a href="#" onClick={() => removePost(objectID)}>
+                    Remove
+                  </a>
                 </div>
               </div>
             </>

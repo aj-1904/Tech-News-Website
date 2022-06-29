@@ -40,11 +40,29 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  //   remove the post
+  const removePost = (post_Id) => {
+    dispatch({
+      type: "REMOVE_POST",
+      payload: post_Id,
+    });
+  };
+
+  //   search
+  const searchPost = (searchQuery) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: searchQuery,
+    });
+  };
+
   useEffect(() => {
     fetchApiData(`${API}query=${state.query}&page=${state.page}`);
-  }, []);
+  }, [state.query]);
   return (
-    <AppContext.Provider value={{ ...state }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ ...state, removePost, searchPost }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 
