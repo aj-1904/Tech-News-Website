@@ -31,10 +31,9 @@ const AppProvider = ({ children }) => {
         type: "GET_STORIES",
         payload: {
           hits: data.hits,
-          //   nbPages: data.nbPages,
+          nbPages: data.nbPages,
         },
       });
-      //   isLoading = false
     } catch (error) {
       console.log(error);
     }
@@ -56,11 +55,28 @@ const AppProvider = ({ children }) => {
     });
   };
 
+  // get prev page
+  const getPrevPage = () => {
+    dispatch({
+      type: "PREV_PAGE",
+    });
+  };
+
+  //   get next page
+
+  const getNextPage = () => {
+    dispatch({
+      type: "NEXT_PAGE",
+    });
+  };
+
   useEffect(() => {
     fetchApiData(`${API}query=${state.query}&page=${state.page}`);
-  }, [state.query]);
+  }, [state.query, state.page]);
   return (
-    <AppContext.Provider value={{ ...state, removePost, searchPost }}>
+    <AppContext.Provider
+      value={{ ...state, removePost, searchPost, getPrevPage, getNextPage }}
+    >
       {children}
     </AppContext.Provider>
   );
